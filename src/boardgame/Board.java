@@ -27,4 +27,12 @@ public class Board {
     public void setColunas(Integer colunas) {
         this.colunas = colunas;
     }
+
+    public Piece piece(int linha, int coluna){
+        return pecas[linha][coluna];
+    }
+
+    public Piece piece(Position position){
+        return pecas[position.getLinha()][position.getColuna()];
+    }
 }
