@@ -30,8 +30,18 @@ public class ChessMatch {
     }
 
     private void setupInicial(){
-         colocaNovaPeca('b', 6, new Rook(board, Color.BRANCO));
-         colocaNovaPeca('e', 8, new King(board, Color.PRETO));
-        colocaNovaPeca('e', 1, new King(board, Color.BRANCO));
+        colocaNovaPeca('c', 1, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('c', 2, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('d', 2, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('e', 2, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('e', 1, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('d', 1, new King(board, Color.BRANCO));
+
+        colocaNovaPeca('c', 7, new Rook(board, Color.PRETO));
+        colocaNovaPeca('c', 8, new Rook(board, Color.PRETO));
+        colocaNovaPeca('d', 7, new Rook(board, Color.PRETO));
+        colocaNovaPeca('e', 7, new Rook(board, Color.PRETO));
+        colocaNovaPeca('e', 8, new Rook(board, Color.PRETO));
+        colocaNovaPeca('d', 8, new King(board, Color.PRETO));
     }
 }
