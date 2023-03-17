@@ -45,6 +45,19 @@ public class Board {
         peca.position = posicao;
     }
 
+    public Piece removePeca(Position posicao){
+        if(!existePosicao(posicao)){
+            throw new BoardException("Posição não existe no tabuleiro!");
+        }
+        if(piece(posicao) == null){
+            return null;
+        }
+        Piece aux = piece(posicao);
+        aux.position = null;
+        pecas[posicao.getLinha()][posicao.getColuna()] = null;
+        return aux;
+    }
+
     private boolean existePosicao(int linha, int coluna){
         return linha >=0 && linha < linhas && coluna >= 0 && coluna < colunas;
     }

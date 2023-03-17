@@ -1,6 +1,8 @@
 package chess;
 
 import boardgame.Board;
+import boardgame.Piece;
+import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
@@ -23,6 +25,27 @@ public class ChessMatch {
             }
         }
         return mat;
+    }
+
+    public ChessPiece performChessMove(ChessPosition posicaoOriginal, ChessPosition posicaoDestino){
+        Position origem = posicaoOriginal.toPosition();
+        Position alvo = posicaoDestino.toPosition();
+        validaPosicaoOrigem(origem);
+        Piece pecaCapturada = makeMove(origem, alvo);
+        return (ChessPiece) pecaCapturada;
+    }
+
+    private Piece makeMove(Position origem, Position destino){
+        Piece p = board.removePeca(origem);
+        Piece capturada = board.removePeca(destino);
+        board.colocaPeca(p, destino);
+        return capturada;
+    }
+
+    private void validaPosicaoOrigem(Position posicao){
+        if(!board.existeUmaPeca(posicao)){
+            throw new ChessException("Não existe peça na posição de origem!");
+        }
     }
 
     private void colocaNovaPeca(char coluna, int linha, ChessPiece peca){
