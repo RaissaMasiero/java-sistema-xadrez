@@ -20,7 +20,7 @@ public class Program {
         while (true) {
             try {
                 UI.limpaTela();
-                UI.printTabuleiro(cm.getPecas());
+                UI.printMatch(cm);
                 System.out.println();
                 System.out.print("Origem: ");
                 ChessPosition origem = UI.lerChessPosition(sc);
