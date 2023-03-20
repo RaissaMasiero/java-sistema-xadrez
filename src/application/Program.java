@@ -25,6 +25,10 @@ public class Program {
                 System.out.print("Origem: ");
                 ChessPosition origem = UI.lerChessPosition(sc);
 
+                boolean[][] movimentosPossiveis = cm.movimentosPossiveis(origem);
+                UI.limpaTela();
+                UI.printTabuleiro(cm.getPecas(), movimentosPossiveis);
+
                 System.out.println();
                 System.out.print("Destino: ");
                 ChessPosition destino = UI.lerChessPosition(sc);
