@@ -20,7 +20,7 @@ public class Program {
         ChessMatch cm = new ChessMatch();
         List<ChessPiece> capturadas = new ArrayList<>();
 
-        while (true) {
+        while (!cm.getCheckMate()) {
              try {
                 UI.limpaTela();
                 UI.printMatch(cm, capturadas);
@@ -50,7 +50,8 @@ public class Program {
                 System.out.println(e.getMessage());
                 sc.nextLine();
             }
-
         }
+        UI.limpaTela();
+        UI.printMatch(cm, capturadas);
     }
 }

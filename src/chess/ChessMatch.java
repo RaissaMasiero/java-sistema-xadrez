@@ -16,6 +16,7 @@ public class ChessMatch {
     private Color jogadorAtual;
     private Board board;
     private boolean check;
+    private boolean checkMate;
     private List<Piece> pecasNoTabuleiro = new ArrayList<>();
     private List<Piece> pecasCapturadas = new ArrayList<>();
 
@@ -36,6 +37,10 @@ public class ChessMatch {
 
     public boolean getCheck(){
         return check;
+    }
+
+    public boolean getCheckMate(){
+        return checkMate;
     }
 
     public ChessPiece[][] getPecas(){
@@ -62,12 +67,20 @@ public class ChessMatch {
         validaPosicaoOrigem(origem);
         validaPosicaoDestino(origem, alvo);
         Piece pecaCapturada = makeMove(origem, alvo);
+
         if(testeCheck(jogadorAtual)){
            desfazerMovimento(origem, alvo, pecaCapturada);
            throw new ChessException("Você não pode se colocar em cheque!");
         }
+
         check = (testeCheck(oponente(jogadorAtual))) ? true : false;
-        proximoTurno();
+
+        if(testeCheckMate(oponente(jogadorAtual))){
+           checkMate = true;
+        }else{
+           proximoTurno();
+        }
+
         return (ChessPiece) pecaCapturada;
     }
 
@@ -143,24 +156,43 @@ public class ChessMatch {
         return false;
     }
 
+    private boolean testeCheckMate(Color color){
+        if(!testeCheck(color)){
+            return false;
+        }
+        List<Piece> list = pecasNoTabuleiro.stream()
+                                .filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+        for(Piece p : list){
+            boolean[][] mat = p.movimentosPossiveis();
+            for(int i=0; i<board.getLinhas(); i++){
+                for(int j=0; j<board.getColunas(); j++){
+                    if(mat[i][j]){
+                       Position origem = ((ChessPiece)p).getChessPosition().toPosition();
+                       Position destino = new Position(i, j);
+                       Piece pecaCapturada = makeMove(origem, destino);
+                       boolean testeCheck = testeCheck(color);
+                       desfazerMovimento(origem, destino, pecaCapturada);
+                       if(!testeCheck){
+                           return false;
+                       }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     private void colocaNovaPeca(char coluna, int linha, ChessPiece peca){
         board.colocaPeca(peca, new ChessPosition(coluna, linha).toPosition());
         pecasNoTabuleiro.add(peca);
     }
 
     private void setupInicial(){
-        colocaNovaPeca('c', 1, new Rook(board, Color.BRANCO));
-        colocaNovaPeca('c', 2, new Rook(board, Color.BRANCO));
-        colocaNovaPeca('d', 2, new Rook(board, Color.BRANCO));
-        colocaNovaPeca('e', 2, new Rook(board, Color.BRANCO));
-        colocaNovaPeca('e', 1, new Rook(board, Color.BRANCO));
-        colocaNovaPeca('d', 1, new King(board, Color.BRANCO));
+        colocaNovaPeca('h', 7, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('d', 1, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('e', 1, new King(board, Color.BRANCO));
 
-        colocaNovaPeca('c', 7, new Rook(board, Color.PRETO));
-        colocaNovaPeca('c', 8, new Rook(board, Color.PRETO));
-        colocaNovaPeca('d', 7, new Rook(board, Color.PRETO));
-        colocaNovaPeca('e', 7, new Rook(board, Color.PRETO));
-        colocaNovaPeca('e', 8, new Rook(board, Color.PRETO));
-        colocaNovaPeca('d', 8, new King(board, Color.PRETO));
+        colocaNovaPeca('b', 8, new Rook(board, Color.PRETO));
+        colocaNovaPeca('a', 8, new King(board, Color.PRETO));
     }
 }
