@@ -21,7 +21,7 @@ public class Program {
         List<ChessPiece> capturadas = new ArrayList<>();
 
         while (true) {
-            try {
+             try {
                 UI.limpaTela();
                 UI.printMatch(cm, capturadas);
                 System.out.println();
@@ -42,7 +42,7 @@ public class Program {
                    capturadas.add(pecaCapturada);
                 }
 
-            } catch (ChessException e) {
+             } catch (ChessException e) {
                 System.out.println(e.getMessage());
                 sc.nextLine();
 
