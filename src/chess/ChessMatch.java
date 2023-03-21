@@ -85,9 +85,11 @@ public class ChessMatch {
     }
 
     private Piece makeMove(Position origem, Position destino){
-        Piece p = board.removePeca(origem);
+        ChessPiece p = (ChessPiece) board.removePeca(origem);
+        p.aumentaContagemMovimento();
         Piece capturada = board.removePeca(destino);
         board.colocaPeca(p, destino);
+
         if(capturada != null){
            pecasNoTabuleiro.remove(capturada);
            pecasCapturadas.add(capturada);
@@ -96,7 +98,8 @@ public class ChessMatch {
     }
 
     private void desfazerMovimento(Position origem, Position destino, Piece pecaCapturada){
-        Piece p = board.removePeca(destino);
+        ChessPiece p = (ChessPiece) board.removePeca(destino);
+        p.diminuiContagemMovimento();
         board.colocaPeca(p, origem);
         if(pecaCapturada != null){
            board.colocaPeca(pecaCapturada, destino);
