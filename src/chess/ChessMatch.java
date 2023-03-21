@@ -3,6 +3,7 @@ package chess;
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
+import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Pawn;
 import chess.pieces.Rook;
@@ -193,7 +194,9 @@ public class ChessMatch {
 
     private void setupInicial(){
         colocaNovaPeca('a', 1, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('c', 1, new Bishop(board, Color.BRANCO));
         colocaNovaPeca('e', 1, new King(board, Color.BRANCO));
+        colocaNovaPeca('f', 1, new Bishop(board, Color.BRANCO));
         colocaNovaPeca('h', 1, new Rook(board, Color.BRANCO));
         colocaNovaPeca('a', 2, new Pawn(board, Color.BRANCO));
         colocaNovaPeca('b', 2, new Pawn(board, Color.BRANCO));
@@ -205,7 +208,9 @@ public class ChessMatch {
         colocaNovaPeca('h', 2, new Pawn(board, Color.BRANCO));
 
         colocaNovaPeca('a', 8, new Rook(board, Color.PRETO));
+        colocaNovaPeca('c', 8, new Bishop(board, Color.PRETO));
         colocaNovaPeca('e', 8, new King(board, Color.PRETO));
+        colocaNovaPeca('f', 8, new Bishop(board, Color.PRETO));
         colocaNovaPeca('h', 8, new Rook(board, Color.PRETO));
         colocaNovaPeca('a', 7, new Pawn(board, Color.PRETO));
         colocaNovaPeca('b', 7, new Pawn(board, Color.PRETO));
