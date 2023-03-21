@@ -93,6 +93,25 @@ public class ChessMatch {
            pecasNoTabuleiro.remove(capturada);
            pecasCapturadas.add(capturada);
         }
+
+        // movimento especial: roque pequeno (torre a direita)
+        if(p instanceof King && destino.getColuna() == origem.getColuna() + 2){
+           Position origemT = new Position(origem.getLinha(), origem.getColuna() + 3);
+           Position destinoT = new Position(origem.getLinha(), origem.getColuna() + 1);
+           ChessPiece torre = (ChessPiece) board.removePeca(origemT);
+           board.colocaPeca(torre, destinoT);
+           torre.aumentaContagemMovimento();
+        }
+
+        // movimento especial: roque grande (torre a esquerda)
+        if(p instanceof King && destino.getColuna() == origem.getColuna() - 2){
+            Position origemT = new Position(origem.getLinha(), origem.getColuna() - 4);
+            Position destinoT = new Position(origem.getLinha(), origem.getColuna() - 1);
+            ChessPiece torre = (ChessPiece) board.removePeca(origemT);
+            board.colocaPeca(torre, destinoT);
+            torre.aumentaContagemMovimento();
+        }
+
         return capturada;
     }
 
@@ -104,6 +123,24 @@ public class ChessMatch {
            board.colocaPeca(pecaCapturada, destino);
            pecasCapturadas.remove(pecaCapturada);
            pecasNoTabuleiro.add(pecaCapturada);
+        }
+
+        // movimento especial: roque pequeno (torre a direita)
+        if(p instanceof King && destino.getColuna() == origem.getColuna() + 2){
+            Position origemT = new Position(origem.getLinha(), origem.getColuna() + 3);
+            Position destinoT = new Position(origem.getLinha(), origem.getColuna() + 1);
+            ChessPiece torre = (ChessPiece) board.removePeca(destinoT);
+            board.colocaPeca(torre, origemT);
+            torre.diminuiContagemMovimento();
+        }
+
+        // movimento especial: roque grande (torre a esquerda)
+        if(p instanceof King && destino.getColuna() == origem.getColuna() - 2){
+            Position origemT = new Position(origem.getLinha(), origem.getColuna() - 4);
+            Position destinoT = new Position(origem.getLinha(), origem.getColuna() - 1);
+            ChessPiece torre = (ChessPiece) board.removePeca(destinoT);
+            board.colocaPeca(torre, origemT);
+            torre.diminuiContagemMovimento();
         }
     }
 
@@ -194,7 +231,7 @@ public class ChessMatch {
         colocaNovaPeca('b', 1, new Knight(board, Color.BRANCO));
         colocaNovaPeca('c', 1, new Bishop(board, Color.BRANCO));
         colocaNovaPeca('d', 1, new Queen(board, Color.BRANCO));
-        colocaNovaPeca('e', 1, new King(board, Color.BRANCO));
+        colocaNovaPeca('e', 1, new King(board, Color.BRANCO, this));
         colocaNovaPeca('f', 1, new Bishop(board, Color.BRANCO));
         colocaNovaPeca('g', 1, new Knight(board, Color.BRANCO));
         colocaNovaPeca('h', 1, new Rook(board, Color.BRANCO));
@@ -211,7 +248,7 @@ public class ChessMatch {
         colocaNovaPeca('b', 8, new Knight(board, Color.PRETO));
         colocaNovaPeca('c', 8, new Bishop(board, Color.PRETO));
         colocaNovaPeca('d', 8, new Queen(board, Color.PRETO));
-        colocaNovaPeca('e', 8, new King(board, Color.PRETO));
+        colocaNovaPeca('e', 8, new King(board, Color.PRETO, this));
         colocaNovaPeca('f', 8, new Bishop(board, Color.PRETO));
         colocaNovaPeca('g', 8, new Knight(board, Color.PRETO));
         colocaNovaPeca('h', 8, new Rook(board, Color.PRETO));
