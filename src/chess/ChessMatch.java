@@ -193,6 +193,7 @@ public class ChessMatch {
         colocaNovaPeca('a', 1, new Rook(board, Color.BRANCO));
         colocaNovaPeca('b', 1, new Knight(board, Color.BRANCO));
         colocaNovaPeca('c', 1, new Bishop(board, Color.BRANCO));
+        colocaNovaPeca('d', 1, new Queen(board, Color.BRANCO));
         colocaNovaPeca('e', 1, new King(board, Color.BRANCO));
         colocaNovaPeca('f', 1, new Bishop(board, Color.BRANCO));
         colocaNovaPeca('g', 1, new Knight(board, Color.BRANCO));
@@ -209,6 +210,7 @@ public class ChessMatch {
         colocaNovaPeca('a', 8, new Rook(board, Color.PRETO));
         colocaNovaPeca('b', 8, new Knight(board, Color.PRETO));
         colocaNovaPeca('c', 8, new Bishop(board, Color.PRETO));
+        colocaNovaPeca('d', 8, new Queen(board, Color.PRETO));
         colocaNovaPeca('e', 8, new King(board, Color.PRETO));
         colocaNovaPeca('f', 8, new Bishop(board, Color.PRETO));
         colocaNovaPeca('g', 8, new Knight(board, Color.PRETO));
