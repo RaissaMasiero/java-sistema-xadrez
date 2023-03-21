@@ -5,6 +5,7 @@ import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.*;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ public class ChessMatch {
     private Board board;
     private boolean check;
     private boolean checkMate;
+    private ChessPiece promovida;
     private ChessPiece enPassantVulneravel;
     private List<Piece> pecasNoTabuleiro = new ArrayList<>();
     private List<Piece> pecasCapturadas = new ArrayList<>();
@@ -41,6 +43,10 @@ public class ChessMatch {
 
     public boolean getCheckMate(){
         return checkMate;
+    }
+
+    public ChessPiece getPromovida() {
+        return promovida;
     }
 
     public ChessPiece getEnPassantVulneravel() {
@@ -79,6 +85,17 @@ public class ChessMatch {
 
         ChessPiece pecaMovida = (ChessPiece) board.piece(alvo);
 
+        // movimento especial: promoção
+
+        promovida = null;
+        if(pecaMovida instanceof Pawn){
+           if((pecaMovida.getColor() == Color.BRANCO && alvo.getLinha() == 0) ||
+                                                              pecaMovida.getColor() == Color.PRETO && alvo.getLinha() == 7){
+              promovida = (ChessPiece) board.piece(alvo);
+              promovida = trocaPecaPromovida("Q");
+           }
+        }
+
         check = (testeCheck(oponente(jogadorAtual))) ? true : false;
 
         if(testeCheckMate(oponente(jogadorAtual))){
@@ -96,6 +113,32 @@ public class ChessMatch {
         }
 
         return (ChessPiece) pecaCapturada;
+    }
+
+    public ChessPiece trocaPecaPromovida(String tipo){
+        if(promovida == null){
+           throw new IllegalStateException("Não há peça para ser promovida!");
+        }
+        if(!tipo.equals("B") && !tipo.equals("N") && !tipo.equals("R") && !tipo.equals("Q")){
+           throw new InvalidParameterException("Tipo inválido para promoção!");
+        }
+
+        Position pos = promovida.getChessPosition().toPosition();
+        Piece p = board.removePeca(pos);
+        pecasNoTabuleiro.remove(p);
+
+        ChessPiece novaPeca = novaPeca(tipo, promovida.getColor());
+        board.colocaPeca(novaPeca, pos);
+        pecasNoTabuleiro.add(novaPeca);
+
+        return novaPeca;
+    }
+
+    private ChessPiece novaPeca(String tipo, Color color){
+        if(tipo.equals("B")) return new Bishop(board, color);
+        if(tipo.equals("N")) return new Knight(board, color);
+        if(tipo.equals("Q")) return new Queen(board, color);
+        return new Rook(board, color);
     }
 
     private Piece makeMove(Position origem, Position destino){

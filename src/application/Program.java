@@ -42,6 +42,12 @@ public class Program {
                    capturadas.add(pecaCapturada);
                 }
 
+                if(cm.getPromovida() != null){
+                   System.out.print("Digite a peça para promoção (B/N/R/Q): ");
+                   String tipo = sc.nextLine();
+                   cm.trocaPecaPromovida(tipo);
+                }
+
              } catch (ChessException e) {
                 System.out.println(e.getMessage());
                 sc.nextLine();
