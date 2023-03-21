@@ -4,6 +4,7 @@ import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.King;
+import chess.pieces.Pawn;
 import chess.pieces.Rook;
 
 import java.util.ArrayList;
@@ -191,11 +192,28 @@ public class ChessMatch {
     }
 
     private void setupInicial(){
-        colocaNovaPeca('h', 7, new Rook(board, Color.BRANCO));
-        colocaNovaPeca('d', 1, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('a', 1, new Rook(board, Color.BRANCO));
         colocaNovaPeca('e', 1, new King(board, Color.BRANCO));
+        colocaNovaPeca('h', 1, new Rook(board, Color.BRANCO));
+        colocaNovaPeca('a', 2, new Pawn(board, Color.BRANCO));
+        colocaNovaPeca('b', 2, new Pawn(board, Color.BRANCO));
+        colocaNovaPeca('c', 2, new Pawn(board, Color.BRANCO));
+        colocaNovaPeca('d', 2, new Pawn(board, Color.BRANCO));
+        colocaNovaPeca('e', 2, new Pawn(board, Color.BRANCO));
+        colocaNovaPeca('f', 2, new Pawn(board, Color.BRANCO));
+        colocaNovaPeca('g', 2, new Pawn(board, Color.BRANCO));
+        colocaNovaPeca('h', 2, new Pawn(board, Color.BRANCO));
 
-        colocaNovaPeca('b', 8, new Rook(board, Color.PRETO));
-        colocaNovaPeca('a', 8, new King(board, Color.PRETO));
+        colocaNovaPeca('a', 8, new Rook(board, Color.PRETO));
+        colocaNovaPeca('e', 8, new King(board, Color.PRETO));
+        colocaNovaPeca('h', 8, new Rook(board, Color.PRETO));
+        colocaNovaPeca('a', 7, new Pawn(board, Color.PRETO));
+        colocaNovaPeca('b', 7, new Pawn(board, Color.PRETO));
+        colocaNovaPeca('c', 7, new Pawn(board, Color.PRETO));
+        colocaNovaPeca('d', 7, new Pawn(board, Color.PRETO));
+        colocaNovaPeca('e', 7, new Pawn(board, Color.PRETO));
+        colocaNovaPeca('f', 7, new Pawn(board, Color.PRETO));
+        colocaNovaPeca('g', 7, new Pawn(board, Color.PRETO));
+        colocaNovaPeca('h', 7, new Pawn(board, Color.PRETO));
     }
 }
